@@ -1,19 +1,22 @@
 ﻿using AutoMapper;
 
-namespace ctOS.Library
+namespace ctOS.Library.Books
 {
     /// <summary>
     /// 
     /// </summary>
-    public class LibraryApplicationAutoMapperProfile : Profile
+    public class BookApplicationAutoMapperProfile : Profile
     {
         /// <summary>
         /// 
         /// </summary>
-        public LibraryApplicationAutoMapperProfile()
+        public BookApplicationAutoMapperProfile()
         {
             CreateMap<Book, BookDto>();
+
             CreateMap<CreateUpdateBookDto, Book>();
+
+            CreateMap<BookDto, CreateUpdateBookDto>();
         }
     }
 }

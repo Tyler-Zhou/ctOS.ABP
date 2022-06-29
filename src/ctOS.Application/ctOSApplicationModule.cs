@@ -27,5 +27,7 @@ public class ctOSApplicationModule : AbpModule
         {
             options.AddMaps<ctOSApplicationModule>();
         });
+        
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using ctOS.Localization;
 using ctOS.MultiTenancy;
+using ctOS.Permissions;
 using Volo.Abp.Identity.Web.Navigation;
 using Volo.Abp.SettingManagement.Web.Navigation;
 using Volo.Abp.TenantManagement.Web.Navigation;
@@ -21,6 +22,7 @@ public class ctOSMenuContributor : IMenuContributor
     private async Task ConfigureMainMenuAsync(MenuConfigurationContext context)
     {
         var administration = context.Menu.GetAdministration();
+
         var l = context.GetLocalizer<ctOSResource>();
 
         context.Menu.Items.Insert(
@@ -34,19 +36,38 @@ public class ctOSMenuContributor : IMenuContributor
             )
         );
 
-        context.Menu.AddItem(
-            new ApplicationMenuItem(
-                "BooksStore",
-                l["Menu:Library"],
-                icon: "fa fa-book"
-            ).AddItem(
-                new ApplicationMenuItem(
-                    "Library.Books",
-                    l["Menu:Books"],
-                    url: "/Books"
-                )
-            )
+        var bookStoreMenu = new ApplicationMenuItem(
+            "Library",
+            l["Menu:Library"],
+            icon: "fa fa-book"
         );
+
+        context.Menu.AddItem(bookStoreMenu);
+
+        //CHECK the PERMISSION
+        if (await context.IsGrantedAsync(ctOSPermissions.Library.Books.Default))
+        {
+            bookStoreMenu.AddItem(new ApplicationMenuItem(
+                "Library.Books",
+                l["Menu:Books"],
+                url: "/Library/Books"
+            ));
+        }
+
+
+        //context.Menu.AddItem(
+        //    new ApplicationMenuItem(
+        //        "Library",
+        //        l["Menu:Library"],
+        //        icon: "fa fa-book"
+        //    ).AddItem(
+        //        new ApplicationMenuItem(
+        //            "Library.Books",
+        //            l["Menu:Books"],
+        //            url: "/Library/Books"
+        //        )
+        //    )
+        //);
 
         if (MultiTenancyConsts.IsEnabled)
         {

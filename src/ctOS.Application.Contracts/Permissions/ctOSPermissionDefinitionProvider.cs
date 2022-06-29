@@ -8,7 +8,14 @@ public class ctOSPermissionDefinitionProvider : PermissionDefinitionProvider
 {
     public override void Define(IPermissionDefinitionContext context)
     {
-        var myGroup = context.AddGroup(ctOSPermissions.GroupName);
+        var rootGroup = context.AddGroup(ctOSPermissions.GroupName, L("Permission:Library"));
+
+        var libraryGroup = rootGroup.AddPermission(ctOSPermissions.Library.LibraryName, L("Permission:Library"));
+        var booksPermission = libraryGroup.AddChild(ctOSPermissions.Library.Books.Default, L("Permission:Books"));
+        booksPermission.AddChild(ctOSPermissions.Library.Books.Create, L("Permission:Books.Create"));
+        booksPermission.AddChild(ctOSPermissions.Library.Books.Edit, L("Permission:Books.Edit"));
+        booksPermission.AddChild(ctOSPermissions.Library.Books.Delete, L("Permission:Books.Delete"));
+
         //Define your own permissions here. Example:
         //myGroup.AddPermission(ctOSPermissions.MyPermission1, L("Permission:MyPermission1"));
     }

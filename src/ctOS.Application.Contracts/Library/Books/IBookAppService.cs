@@ -2,7 +2,7 @@
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 
-namespace ctOS.Library
+namespace ctOS.Library.Books
 {
     /// <summary>
     /// 

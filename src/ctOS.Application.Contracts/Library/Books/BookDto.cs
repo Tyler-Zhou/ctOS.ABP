@@ -1,12 +1,13 @@
 ﻿using System;
-using Volo.Abp.Domain.Entities.Auditing;
+using System.Collections.Generic;
+using Volo.Abp.Application.Dtos;
 
-namespace ctOS.Library
+namespace ctOS.Library.Books
 {
     /// <summary>
     /// 
     /// </summary>
-    public class Book : AuditedAggregateRoot<Guid>
+    public class BookDto : AuditedEntityDto<Guid>
     {
         /// <summary>
         /// 
@@ -40,6 +41,5 @@ namespace ctOS.Library
         /// 
         /// </summary>
         public DateTime tCreateDate { get; set; }
-
     }
 }

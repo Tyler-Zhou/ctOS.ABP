@@ -1,9 +1,12 @@
-﻿using System;
+﻿using ctOS.Permissions;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 
-namespace ctOS.Library
+namespace ctOS.Library.Books
 {
     /// <summary>
     /// 
@@ -24,7 +27,12 @@ namespace ctOS.Library
         public BookAppService(IRepository<Book, Guid> repository)
             : base(repository)
         {
-
+            GetPolicyName = ctOSPermissions.Library.Books.Default;
+            GetListPolicyName = ctOSPermissions.Library.Books.Default;
+            CreatePolicyName = ctOSPermissions.Library.Books.Create;
+            UpdatePolicyName = ctOSPermissions.Library.Books.Edit;
+            DeletePolicyName = ctOSPermissions.Library.Books.Delete;
         }
+
     }
 }
